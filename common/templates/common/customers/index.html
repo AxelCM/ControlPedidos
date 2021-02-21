@@ -1,0 +1,25 @@
+{%extends 'common/customers/base.html' %}
+{%block title%}Control de Pedidos{%endblock title%}
+
+{%block navbar%}
+
+{%endblock navbar%}
+{%block search_bar%}
+
+
+{%endblock search_bar%}
+
+{%block content %}
+<br>
+{%if messages%}
+<div class="col col-sm-4">
+<div class="alert alert-success">
+    {% for m in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ m }}</li>
+    {% endfor %}
+  </div>
+</div>
+{%endif%}
+
+
+{%endblock content%}

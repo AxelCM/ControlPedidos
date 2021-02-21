@@ -2,7 +2,9 @@
 from django.urls import path
 
 #Views
-from sales.views import IndexView
+from sales.views import IndexView, CustomerView
+
 urlpatterns= [
-    path('', IndexView.as_view(), name='index')
+    path('', CustomerView.as_view(), name='index'),
+    path('mydashboard/', IndexView.as_view(), name='customer_index'),
 ]
