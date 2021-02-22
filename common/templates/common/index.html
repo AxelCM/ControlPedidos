@@ -1,20 +1,67 @@
 {%extends 'common/base.html'%}
 {%block title%} INICIO {%endblock title%}
 {%load static%}
-
+{% load humanize %}
 {%block content%}
+
+{% if create %}
+{% include "products/modals/create_product.html"%}
+<a href="#"></a>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Publicar un producto +</button>
+<hr>
+{% endif %}
+<div class="row">
+    {%for p in data%}
+          <div class="col-md-3">
+            <div class="card">
+              {%if is_owner == True%}
+              <div class="card-header">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_{{p.pk}}">Editar</button>
+                <a href="#" class="btn btn-danger">Eliminar</a>
+              </div>
+              {%endif%}
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div id="carousel--item-image" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carousel--item-image" data-slide-to="0" class=""></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      {% if p.picture %}
+                      <img class="d-block w-50" src="{{p.picture.url}}" alt="Image Product">
+                      {% else %}
+                      <img class="d-block w-50" src="{%static 'product_default.png'%}" alt="Image Product">
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <a href="{%url "detail_product" p.pk%}">{{p.name}} - Q{{p.public_price|intcomma:False }}</a>
+                  <div class="bg-light disabled color-palette"><span>Vendedor:{{p.user_creation.first_name}}</span></div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+      {%endfor%}
+</div>
+{% if edit %}
+  {% for p in data %}
+    {% include "products/modals/update_product.html" %}
+  {% endfor %}
+{% endif %}
+
 {%endblock content%}
+
+
+
 
 
 
 {%block plugin%}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-{%if messages%}
-<script>
-//include alerts here!
-
-</script>
-{%endif%}
-
+{% block script %}
+{% include "common/messages.html" %}
+{% endblock %}
 {%endblock plugin%}

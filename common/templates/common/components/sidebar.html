@@ -1,0 +1,77 @@
+<!-- Sidebar Menu -->
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Add icons to the links using the .nav-icon class
+         with font-awesome or any other icon font library -->
+    <li class="nav-item has-treeview">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-cash-register"></i>
+        <p>
+          Mis productos
+          <i class="fas fa-angle-left right"></i>
+          <span class="badge badge-info right">6</span>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{%url 'my_products'%}" class="nav-link">
+            <p>Mis productos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <p>Vendidos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <p>Reportes de ventas</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-treeview">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-cart-plus"></i>
+        <p>
+          Compras
+          <i class="fas fa-angle-left right"></i>
+          <span class="badge badge-info right">6</span>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Mis compras</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-treeview">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-user"></i>
+        <p>
+          Cuenta
+          <i class="fas fa-angle-left right"></i>
+          <span class="badge badge-info right">6</span>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Editar cuenta</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{%url 'logout'%}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Salir</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<!-- /.sidebar-menu -->

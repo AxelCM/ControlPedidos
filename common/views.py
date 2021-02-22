@@ -30,7 +30,7 @@ class NotPermissionsRule(LoginRequiredMixin,PermissionRequiredMixin):
 
 class NotPermissions(TemplateView):
     """View to redirect user a error for not permission to render"""
-    template_name = 'ordenes/widgets/not_permission.html'
+    template_name = 'common/error_404.html'
 
 class CatalogueView(TemplateView):
     template_name = "common/customers/catalog.html"
@@ -44,5 +44,5 @@ class LoginView(SuccessMessageMixin , auth_views.LoginView):
     success_message = "Bienvenido!"
 
 
-class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
-    pass
+class LogoutView(LoginRequiredMixin,SuccessMessageMixin, auth_views.LogoutView):
+    success_message = "Cierre de sesion completado"

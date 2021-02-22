@@ -39,18 +39,25 @@ class DataControl(models.Model):
         abstract =  True
 
 class Product(DataControl):
+    """Model for products"""
     name = models.CharField('Name Product', max_length=100)
     cost_price = models.DecimalField('Cost price' , max_digits=10 , decimal_places=3)
     public_price = models.DecimalField('Public Price' ,max_digits=15, decimal_places=2)
+    # slug = models.SlugField(null=True, blank=True)
+    picture = models.ImageField(
+        upload_to='products/pictures',
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return self.name
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self,*args,**kwargs):
         user = get_current_user()
         if user is not None:
             if not self.pk:
                 self.user_creation = user
             else:
                 self.user_updated = user
-        super(Product, self).save()
+        super(Product, self).save(*args, **kwargs)
