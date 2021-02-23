@@ -51,8 +51,6 @@ class MyProductsView(TemplateView):
     def get_context_data(self, *args , **kwargs):
         me = self.request.user.pk
         my_products = Product.objects.filter(user_creation=me)
-        print(self.request.session["cart"])
-        print("si salio")
         is_owner = True
         create = True
         edit = True
@@ -113,7 +111,7 @@ class DetailProduct(LoginRequiredMixin,DetailView):
     slug_field = 'pk'
     slug_url_kwarg = 'pk'
     queryset = Product.objects.all()
-    context_object_name = 'product'
+    context_object_name = 'p'
 
     def get_context_data(self , *args , **kwargs):
         context = super(DetailProduct, self).get_context_data(**kwargs)

@@ -3,7 +3,7 @@ from django.urls import path
 
 #Views
 from sales.views import (IndexView, CustomerView , add_to_cart, CartView, clean_cart,
-    pop_cart,
+    pop_cart,CreateSale
     )
 
 urlpatterns= [
@@ -13,4 +13,5 @@ urlpatterns= [
     path('vaciar-carrito-de-compra/', clean_cart, name='clean_cart'),
     path('borrar-de-carrito/', pop_cart, name='pop_cart'),
     path('mi-carrito/', CartView.as_view(), name='my_cart'),
+    path('checkout/', CreateSale.as_view(), name='checkout'),
 ]

@@ -10,8 +10,8 @@
           <div class="row">
             <div class="col-12 col-sm-6">
               <div class="col-8">
-                {% if product.picture %}
-                <img class="product-image" src="{{product.picture.url}}" alt="Image Product">
+                {% if p.picture %}
+                <img class="product-image" src="{{p.picture.url}}" alt="Image Product">
                 {% else %}
                 <img src="{%static 'product_default.png'%}" class="product-image" alt="Product Image">
                 {% endif %}
@@ -22,24 +22,32 @@
               </div>
             </div>
             <div class="col-12 col-sm-6">
-              <h3 class="my-3">{{product.name}}</h3>
+              <h3 class="my-3">{{p.name}}</h3>
               <p>Descripcion del producto</p>
 
               <hr>
               <div class="bg-gray py-2 px-3 mt-4">
                 <h2 class="mb-0">
-                  Q{{product.public_price|intcomma:False}}
+                  Q{{p.public_price|intcomma:False}}
                 </h2>
                 <h4 class="mt-0">
                   <small>Envio gratis</small>
                 </h4>
               </div>
 
+              {% if p.user_creation.pk == request.user.pk %}
+              <div class="card-header">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_{{p.pk}}">Editar</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_{{p.pk}}">Eliminar</button>
+                {% include "products/modals/update_product.html" %}
+                {% include "products/modals/delete_product.html" %}
+              </div>
+              {% else %}
               <div class="mt-4">
                 <div class="btn btn-lg btn-flat">
                   <form class="row" action="{%url 'add_to_cart'%}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="product" value="{{product.pk}}">
+                    <input type="hidden" name="product" value="{{p.pk}}">
                     <select class="form-control" name="cant">
                         {%for i in 10|times%}
                           {% if i > 0 %}
@@ -54,6 +62,7 @@
                   </form>
                 </div>
               </div>
+              {% endif %}
             </div>
           </div>
           <div class="row mt-4">

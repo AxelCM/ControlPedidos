@@ -44,12 +44,16 @@
                   <a class="float-right">Q{{total|intcomma:False}}</a>
                 </li>
                 </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>Checkout</b></a>
+                {% if cart %}
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal_checkout"><b>Checkout</b></button>
+                {% endif %}
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+{% if cart %}
+{% include "sales/modals/checkout.html" %}
+{% endif %}
 {%endblock content%}
 
 
