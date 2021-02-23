@@ -17,7 +17,7 @@
               {%if is_owner == True%}
               <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_{{p.pk}}">Editar</button>
-                <a href="#" class="btn btn-danger">Eliminar</a>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_{{p.pk}}">Eliminar</button>
               </div>
               {%endif%}
               <!-- /.card-header -->
@@ -49,6 +49,11 @@
 {% if edit %}
   {% for p in data %}
     {% include "products/modals/update_product.html" %}
+  {% endfor %}
+{% endif %}
+{% if delete %}
+  {% for p in data %}
+    {% include "products/modals/delete_product.html" %}
   {% endfor %}
 {% endif %}
 

@@ -51,10 +51,13 @@ class MyProductsView(TemplateView):
     def get_context_data(self, *args , **kwargs):
         me = self.request.user.pk
         my_products = Product.objects.filter(user_creation=me)
+        print(self.request.session["cart"])
+        print("si salio")
         is_owner = True
         create = True
         edit = True
-        return {"data": my_products , 'is_owner':is_owner, 'create':create , 'edit':edit}
+        delete = True
+        return {"data": my_products , 'is_owner':is_owner, 'create':create , 'edit':edit , 'delete':delete}
 
 class CreateProduct(SuccessMessageMixin, LoginRequiredMixin,CreateView):
     # permission_required = "products.add_product"
@@ -90,8 +93,18 @@ class UpdateProduct(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
         return context
 
 
-class DeleteProduct(DeleteView):
-    pass
+def delete_product(request):
+    me = User.objects.get(pk=request.user.pk)
+    id = request.POST.get('product' , '')
+    product = Product.objects.get(pk=id)
+    if product.user_creation == me:
+        product.delete()
+        messages.success(request, 'Eliminaste el articulo --{}-- de tu lista de productos'.format(product.name))
+        return HttpResponseRedirect(reverse_lazy('my_products'))
+    else:
+        messages.error(request, 'Ocurrio un error al realizar la accion')
+        return HttpResponseRedirect(reverse_lazy('my_products'))
+
 
 class DetailProduct(LoginRequiredMixin,DetailView):
     login_url= '/login/'

@@ -13,7 +13,7 @@
     })
 
     Toast.fire({
-      icon: 'success',
+      icon: '{{message.tags}}',
       title: 'Signed in successfully'
     })
     {% endfor %}

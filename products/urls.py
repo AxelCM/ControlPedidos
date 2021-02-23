@@ -3,7 +3,7 @@ from django.urls import path
 
 #Views
 from products.views import (list_product , create_product, MyProductsView,
-    CreateProduct, UpdateProduct, DetailProduct
+    CreateProduct, UpdateProduct, DetailProduct , delete_product
     )
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     path('publish/product' , CreateProduct.as_view(), name='publish_product'),
     path('update/product/<int:pk>' , UpdateProduct.as_view(), name='update_product'),
     path('producto/<int:pk>' , DetailProduct.as_view(), name='detail_product'),
+    path('eliminar-producto/' , delete_product, name='delete_product'),
 ]

@@ -1,0 +1,62 @@
+{%extends 'common/base.html'%}
+{%block title%} INICIO {%endblock title%}
+{%load static%}
+{% load humanize %}
+
+{%block content%}
+<div class="col-md-6">
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <h3 class="profile-username text-center">Carrito</h3>
+                <p class="text-muted text-center">Tienes {{cart_counter}} articulo(s) en el carrito</p>
+                {% if cart %}
+                <a class="text-muted text-center" href="{%url 'clean_cart'%}">Vaciar carrito</a>
+                {% endif %}
+                <ul class="list-group list-group-unbordered mb-3">
+                {% for c in cart %}
+                {% for cart in init_cart %}
+                    {% if c.pk == cart.pk %}
+                    <li class="list-group-item">
+                      <div class="media">
+                          {% if c.picture %}
+                              <img src="{{ c.picture.url}}" height="50" />
+                          {% else%}
+                              <img src="{% static 'product_default.png' %}"height="50" />
+                          {% endif %}
+                      </div>
+                      <form class="form-row" action="{%url 'pop_cart'%}" method="post">
+                        <p>{{cart.cant}} unidad(es) -
+                        <b>{{c.name}} - </b>
+                        </p>
+                        {% csrf_token %}
+                        <input type="hidden" name="product" value="{{c.pk}}">
+                        <button class="fas fa-trash" type="submit" name="button">
+                        </button>
+                      </form>
+                        <a class="float-right">Precio Unitario: Q{{c.public_price|intcomma:False}}</a>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+                <hr>
+                <li class="list-group-item">
+                  <b>Total de la compra:</b>
+                  <a class="float-right">Q{{total|intcomma:False}}</a>
+                </li>
+                </ul>
+
+                <a href="#" class="btn btn-primary btn-block"><b>Checkout</b></a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+{%endblock content%}
+
+
+
+{%block plugin%}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+{% block script %}
+{% include "common/messages.html" %}
+{% endblock %}
+{%endblock plugin%}
